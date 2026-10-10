@@ -1,0 +1,19 @@
+{
+  "name": "life-ledger",
+  "version": "1.0.0",
+  "description": "Life Ledger - Track your life. Understand your habits. Build your future.",
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run client\"",
+    "backend": "cd backend && mvn spring-boot:run",
+    "backend:gui": "cd backend && CP=\"target/classes:\"$(find ~/.m2/repository -name \"*.jar\" | tr '\\n' ':') && java -cp \"$CP\" com.lifledger.gui.LifeLedgerGUI",
+    "backend:test": "cd backend && CP=\"target/classes:\"$(find ~/.m2/repository -name \"*.jar\" | tr '\\n' ':') && java -cp \"$CP\" com.lifledger.test.LifeLedgerTestRunner",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm run dev",
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "seed": "cd server && npm run seed",
+    "build": "cd client && npm run build"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
