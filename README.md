@@ -1,286 +1,263 @@
-# 🌟 Life Ledger — Personal Wellness & Lifestyle Management Platform
+<div align="center">
 
-[![Java 21](https://img.shields.io/badge/Java-21-orange.svg)](https://www.oracle.com/java/)
-[![Spring Boot 3.3](https://img.shields.io/badge/Spring_Boot-3.3.5-brightgreen.svg)](https://spring.io/projects/spring-boot)
-[![React 18](https://img.shields.io/badge/React-18.2-blue.svg)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Vite-5.2-purple.svg)](https://vitejs.dev/)
-[![Database](https://img.shields.io/badge/Database-H2%20%7C%20PostgreSQL-blueviolet.svg)](http://localhost:8080/h2-console)
-[![Academic Rubric Score](https://img.shields.io/badge/Rubric_Score-100%25%20Verified-success.svg)](#-academic-marking-rubric-compliance)
+# Life Ledger
 
-> **Life Ledger** is a unified personal wellness and lifestyle platform designed to help users track their nutrition, hydration, daily habits, sleep, workouts, and personal reflections through an interactive dashboard.
+### Personal Wellness & Lifestyle Management Platform
 
----
+[![Java](https://img.shields.io/badge/Java-21-orange.svg?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.oracle.com/java/)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.3.4-brightgreen.svg?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![React](https://img.shields.io/badge/React-18-blue.svg?style=for-the-badge&logo=react&logoColor=white)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-5-purple.svg?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-## 📑 Table of Contents
-1. [Project Overview](#-project-overview)
-2. [Academic Marking Rubric Compliance](#-academic-marking-rubric-compliance)
-3. [System Architecture](#-system-architecture)
-4. [Tech Stack](#-tech-stack)
-5. [Project Structure](#-project-structure)
-6. [Quick Start & How to Run](#-quick-start--how-to-run)
-7. [REST API Documentation](#-rest-api-documentation)
-8. [Standalone Java Swing Desktop GUI](#-standalone-java-swing-desktop-gui)
-9. [Automated Rubric Verification Suite](#-automated-rubric-verification-suite)
-10. [Presentation Deck & Submission Files](#-presentation-deck--submission-files)
+<p align="center">
+  A modern, unified wellness command center featuring 3D-inspired cards, real-time health score calculation, habit streak tracking, and holistic routine analytics.
+</p>
+
+[Key Features](#key-features) • [Architecture](#architecture) • [Getting Started](#getting-started) • [API Reference](#api-reference) • [Project Structure](#project-structure) • [Roadmap](#future-enhancements)
+
+</div>
 
 ---
 
-## 🌟 Project Overview
+## Overview
 
-People often struggle to maintain consistent wellness habits because their information is scattered across multiple fragmented applications. **Life Ledger** solves this by unifying:
-- 🥗 **Food Diary & Nutrition Tracker**: Calorie counting and macronutrient breakdown (protein, carbs, fat).
-- 💧 **Hydration Tracker**: Interactive cup logger targeting 2,500 ml/day.
-- 👟 **Step Counter**: Manual step logging with experimental motion sensor detection.
-- 🌙 **Sleep & Exercise Logging**: Track rest duration and physical workout minutes.
-- 🎯 **Daily Habit Tracker**: Toggleable habits with streak reflection.
-- 📝 **Personal Notes**: Daily reflection journal.
-- 📅 **Historical Calendar**: Seamless navigation to inspect and reflect on past consistency.
+**Life Ledger** bridges the gap between fragmented health tracking tools by bringing daily activities, nutrition, hydration, steps, habits, sleep, and exercise into a unified, interactive dashboard. 
+
+Built with **Java 21 / Spring Boot 3.3** on the backend and **React 18 / Tailwind CSS** on the frontend, Life Ledger emphasizes visual feedback, zero unnecessary code boilerplate, and actionable wellness insights.
 
 ---
 
-## 🏆 Academic Marking Rubric Compliance
+## Key Features
 
-Life Ledger is architected to satisfy **both** the **Java Web Based Projects Marking Rubric** and the **Java GUI Based Projects Marking Rubric** with 100% full marks.
-
-### 1. Java Web Based Projects Marking Rubric (33 Marks)
-
-| Rubric Component | Max Marks | Implementation in Life Ledger | File Reference |
-|---|:---:|---|---|
-| **Problem Understanding & Solution Design** | **8 Marks** | PRD & BRD realization, modular 3-tier architecture, domain modeling, DTO decoupling, and data transparency (FR-12). | `PRD`, `BRD`, [`WellnessEntry.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/model/WellnessEntry.java) |
-| **Core Java Concepts (OOP, Collections, Threads)** | **10 Marks** | Polymorphism via `MetricCalculator` strategy, inheritance via `BaseEntity`, custom exceptions with `@RestControllerAdvice`, Java Streams, Generics (`ApiResponse<T>`), and background async threading (`AsyncAnalyticsService`). | [`MetricCalculator.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/calculator/MetricCalculator.java)<br>[`BaseEntity.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/model/BaseEntity.java)<br>[`GlobalExceptionHandler.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/exception/GlobalExceptionHandler.java) |
-| **Database Integration (JDBC)** | **8 Marks** | Native `JdbcWellnessDao` using raw `java.sql` classes: `Connection`, `PreparedStatement`, `ResultSet`, batch inserts, transaction handling, and embedded H2 schema initialization. | [`JdbcWellnessDao.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/dao/JdbcWellnessDao.java) |
-| **Servlets & Web Integration** | **7 Marks** | Low-level `CustomLoggingFilter` implementing `jakarta.servlet.Filter` with filter lifecycle management (`init`, `doFilter`, `destroy`), execution timing, header injection, and Spring MVC REST Controllers. | [`CustomLoggingFilter.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/servlet/CustomLoggingFilter.java)<br>[`WellnessEntryController.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/controller/WellnessEntryController.java) |
-
-### 2. Java GUI Based Projects Marking Rubric (33 Marks)
-
-| Rubric Component | Max Marks | Implementation in Life Ledger | File Reference |
-|---|:---:|---|---|
-| **OOP Implementation (Polymorphism, Inheritance, Exceptions, Interfaces)** | **10 Marks** | `MetricCalculator` interface with 4 polymorphic calculators, `BaseEntity` inheritance, and custom runtime exceptions. | [`calculator/`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/calculator/)<br>[`exception/`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/exception/) |
-| **Collections & Generics** | **6 Marks** | `ApiResponse<T>` generic container, `List<FoodItem>`, `List<HabitItem>`, `Map<String, Double>`, and Java 8 Streams filtering and reductions. | [`ApiResponse.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/dto/ApiResponse.java)<br>[`WellnessEntry.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/model/WellnessEntry.java) |
-| **Multithreading & Synchronization** | **4 Marks** | Standalone `LifeLedgerGUI` utilizes `SwingWorker` for async background queries; backend uses `AsyncAnalyticsService` with `synchronized` critical sections and `AtomicLong`. | [`LifeLedgerGUI.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/gui/LifeLedgerGUI.java)<br>[`AsyncAnalyticsService.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/service/AsyncAnalyticsService.java) |
-| **Classes for Database Operations** | **7 Marks** | `WellnessDao` interface, concrete `JdbcWellnessDao` class, and Spring Data JPA `WellnessEntryRepository`. | [`JdbcWellnessDao.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/dao/JdbcWellnessDao.java)<br>[`WellnessEntryRepository.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/repository/WellnessEntryRepository.java) |
-| **Database Connectivity (JDBC)** | **3 Marks** | Direct `javax.sql.DataSource` connectivity with parameter-safe SQL queries. | [`JdbcWellnessDao.java`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/java/com/lifledger/dao/JdbcWellnessDao.java) |
-| **Implement JDBC for Database Connectivity** | **3 Marks** | Connection pooling via HikariCP and Spring `DriverManagerDataSource` connecting to `jdbc:h2:mem:lifeledgerdb`. | [`application.properties`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/backend/src/main/resources/application.properties) |
+- **Unified Wellness Score (0–100%)**
+  - Dynamically calculated in real-time by weighting step progress, hydration goals, active calorie burns, sleep quality, and daily habit consistency.
+  - Interactive 3D SVG circular meter with dynamic tier status badges (*Optimal Flow*, *On Track*, *Needs Focus*).
+- **3D Hydration Vessel**
+  - Realistic cylindrical vessel featuring animated fluid fill and graduation markers.
+  - One-tap quick-add buttons (+250ml cup, +500ml bottle, +750ml flask) for seamless logging.
+- **Macronutrient & Fuel Breakdown**
+  - Daily caloric budget bar comparing intake against personalized energy goals.
+  - Protein, Carbohydrate, and Fat distribution cards with gram weight and calorie percentages.
+  - Chronological meal timeline with instant deletion and meal creation.
+- **Habit Matrix & Streaks**
+  - Track wellness habits across 5 core dimensions: **Mind**, **Body**, **Nutrition**, **Sleep**, and **Focus**.
+  - Animated streak flames showing continuous adherence.
+  - One-click daily toggle checkboxes that immediately update your overall wellness score.
+- **Sleep Architecture Visualizer**
+  - Deep Sleep vs. Light/REM phase breakdown.
+  - Bedtime and wake-up logs with sleep efficiency score out of 100.
+- **Exercise & Workout Log**
+  - Workouts categorized by activity type (Running, Walking, Cycling, Gym, Yoga, Swimming, etc.).
+  - Calorie burn estimation based on duration and intensity (Low, Moderate, High).
+- **7-Day Longitudinal Momentum Chart**
+  - Interactive bar chart with metric selector tabs (Overall Score, Steps, Water, Sleep) to visualize progress over time.
+- **Quick Logging Dock**
+  - Tabbed modal dialog for rapid data entry across all categories from anywhere on the dashboard.
 
 ---
 
-## 🏗️ System Architecture
+## Architecture
 
 ```mermaid
 graph TD
-    subgraph Client Tier
-        UI[React 18 + Vite Web Client\nhttp://localhost:5173]
-        GUI[Standalone Java Swing Desktop App\nLifeLedgerGUI.java]
+    Client["React 18 + Tailwind CSS 3D Frontend (Port 5173 / 8080)"]
+    
+    subgraph Spring Boot 3.3 Backend
+        Controller["REST Controllers\n/api/dashboard, /api/habits, /api/meals, /api/activities, /api/hydration, /api/sleep"]
+        Service["Service Layer\nDashboardService, HabitService, MealService, etc."]
+        Repo["Spring Data JPA Repositories"]
     end
-
-    subgraph Web & Servlet Tier
-        Filter[CustomLoggingFilter\njakarta.servlet.Filter]
-        HealthCtrl[HealthController\nGET /api/health]
-        EntryCtrl[WellnessEntryController\nREST CRUD Endpoints]
+    
+    subgraph Persistence Layer
+        H2[("H2 In-Memory Database\nPreloaded with 7-Day Seed Data")]
     end
-
-    subgraph Service Tier
-        Service[WellnessServiceImpl]
-        Async[AsyncAnalyticsService\n@Async + synchronized]
-        Strategy[Polymorphic MetricCalculators\nActivity | Hydration | Sleep | Nutrition]
-    end
-
-    subgraph Persistence Tier
-        JPA[Spring Data JPA Repository\nWellnessEntryRepository]
-        JDBC[Native JDBC DAO\nJdbcWellnessDao with PreparedStatement]
-        DB[(H2 Database / PostgreSQL\njdbc:h2:mem:lifeledgerdb)]
-    end
-
-    UI -->|REST / JSON| Filter
-    Filter --> EntryCtrl
-    Filter --> HealthCtrl
-    EntryCtrl --> Service
-    Service --> Async
-    Service --> Strategy
-    Service --> JPA
-    Service --> JDBC
-    GUI -->|Direct JDBC| JDBC
-    JPA --> DB
-    JDBC --> DB
+    
+    Client -->|REST JSON / HTTP| Controller
+    Controller --> Service
+    Service --> Repo
+    Repo --> H2
 ```
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Backend**: Java 21 / 26, Spring Boot 3.3.5, Spring Data JPA, Spring JDBC
-- **Database**: H2 (In-memory development with Web Console), PostgreSQL ready
-- **Frontend**: React 18, Vite 5, Tailwind CSS, Lucide React, Framer Motion
-- **Desktop Companion**: Java Swing (JFrame, JPanel, JTable, SwingWorker)
-- **Build Tools**: Apache Maven, npm
-
----
-
-## 📁 Project Structure
-
-```text
-life-ledger/
-├── backend/                                   # Java Spring Boot Backend
-│   ├── src/main/java/com/lifledger/
-│   │   ├── LifeLedgerApplication.java         # Spring Boot entry point
-│   │   ├── calculator/                        # Polymorphic Metric Calculators
-│   │   │   ├── MetricCalculator.java          # Strategy Interface
-│   │   │   ├── ActivityMetricCalculator.java
-│   │   │   ├── HydrationMetricCalculator.java
-│   │   │   ├── SleepMetricCalculator.java
-│   │   │   └── NutritionMetricCalculator.java
-│   │   ├── config/                            # Web & CORS configuration
-│   │   ├── controller/                        # REST Controllers
-│   │   │   ├── HealthController.java          # GET /api/health
-│   │   │   └── WellnessEntryController.java   # /api/entries CRUD
-│   │   ├── dao/                               # Low-level JDBC Data Access Objects
-│   │   │   ├── WellnessDao.java               # DAO Interface
-│   │   │   └── JdbcWellnessDao.java           # Raw JDBC Implementation (PreparedStatement)
-│   │   ├── dto/                               # Generic API Wrappers & Data Objects
-│   │   │   ├── ApiResponse.java               # ApiResponse<T> Generics
-│   │   │   ├── DailySummaryDto.java
-│   │   │   └── WellnessEntryDto.java
-│   │   ├── exception/                         # Custom Exception Handling
-│   │   │   ├── GlobalExceptionHandler.java    # @RestControllerAdvice
-│   │   │   ├── InvalidEntryException.java
-│   │   │   └── ResourceNotFoundException.java
-│   │   ├── gui/                               # Standalone Java Swing Desktop App
-│   │   │   └── LifeLedgerGUI.java             # Desktop Client (SwingWorker & JDBC)
-│   │   ├── model/                             # Domain Entities (JPA & Inheritance)
-│   │   │   ├── BaseEntity.java                # Abstract MappedSuperclass
-│   │   │   ├── WellnessEntry.java             # Core Entity
-│   │   │   ├── FoodItem.java                  # Nutritional Embeddable
-│   │   │   └── HabitItem.java                 # Daily Habit Embeddable
-│   │   ├── repository/                        # Spring Data JPA Repositories
-│   │   │   └── WellnessEntryRepository.java
-│   │   ├── service/                           # Business & Async Concurrency Services
-│   │   │   ├── WellnessService.java
-│   │   │   ├── WellnessServiceImpl.java
-│   │   │   └── AsyncAnalyticsService.java     # @Async + Synchronized Lock
-│   │   ├── servlet/                           # Pure Servlet Filter Lifecycle
-│   │   │   ├── CustomLoggingFilter.java       # jakarta.servlet.Filter
-│   │   │   └── FilterConfig.java              # FilterRegistrationBean
-│   │   └── test/
-│   │       └── LifeLedgerTestRunner.java      # Standalone Rubric Verification Suite
-│   ├── src/main/resources/
-│   │   └── application.properties             # Port 8080, H2 DB, thread pool config
-│   └── pom.xml                                # Maven build specification
-├── client/                                    # React 18 + Vite Frontend
-│   ├── src/
-│   │   ├── components/                        # Reusable UI cards & modals
-│   │   ├── pages/
-│   │   │   ├── WellnessHub.jsx                # Daily Wellness Tracker (FR-01 to FR-12)
-│   │   │   ├── Dashboard.jsx
-│   │   │   └── ...
-│   │   ├── services/
-│   │   │   └── wellnessApi.js                 # Axios API connector to Java backend
-│   │   └── App.jsx                            # Route definitions (/wellness, /dashboard)
-│   └── package.json
-├── presentation/                              # Submission Presentation Deck
-│   ├── index.html                             # 14-slide interactive presentation
-│   └── PRESENTATION.md                        # Complete slide-by-slide speaker notes
-├── package.json                               # Workspace scripts
-└── README.md                                  # Complete project documentation
-```
+| Component | Technology | Version | Description |
+|---|---|---|---|
+| **Backend** | Java | 21 / 27 | Core programming language |
+| **Framework** | Spring Boot | 3.3.4 | REST API, Data JPA, Validation |
+| **Database** | H2 Database | 2.x | Zero-config in-memory relational store |
+| **Build Tool** | Apache Maven | 3.9+ | Backend dependency & packaging tool |
+| **Frontend** | React | 18.3 | User interface library |
+| **Bundler** | Vite | 5.4 | Next-generation frontend tooling |
+| **Styling** | Tailwind CSS | 3.4 | Utility-first CSS with custom 3D perspective transforms |
+| **Icons** | Lucide React | 0.460 | Clean, lightweight icon suite |
 
 ---
 
-## 🚀 Quick Start & How to Run
+## Getting Started
 
 ### Prerequisites
-- **Java**: JDK 17, 21, or 26 installed (`java -version`)
-- **Maven**: 3.8+ (`mvn -version`)
-- **Node.js**: v18+ & npm (`node -v`)
 
-### 1. Run the Spring Boot Backend (Port 8080)
-```bash
-# From root directory:
-npm run backend
+Ensure you have the following installed:
+- **JDK 21 or higher**: `java -version`
+- **Apache Maven 3.8+**: `mvn -version`
+- **Node.js 18+ and npm**: `node -v && npm -v`
 
-# Or directly in backend folder:
-cd backend
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-26.jdk/Contents/Home # or your local JDK path
-mvn spring-boot:run
+---
+
+### Option 1: Unified Single-Port Run (Recommended)
+
+The React frontend is built directly into Spring Boot's static resources, allowing you to run the entire application with a single Maven command.
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/life-ledger.git
+   cd life-ledger
+   ```
+
+2. **Run the Spring Boot application:**
+   ```bash
+   cd backend
+   mvn spring-boot:run
+   ```
+
+3. **Access the application:**
+   - **Dashboard**: [http://localhost:8080](http://localhost:8080)
+   - **H2 Database Console**: [http://localhost:8080/h2-console](http://localhost:8080/h2-console)
+     - *JDBC URL*: `jdbc:h2:mem:lifeledger`
+     - *Username*: `sa`
+     - *Password*: *(empty)*
+
+---
+
+### Option 2: Full-Stack Development Mode (Hot Reloading)
+
+If you plan to modify the React frontend with instant Hot Module Replacement (HMR):
+
+1. **Start the backend:**
+   ```bash
+   cd backend
+   mvn spring-boot:run
+   ```
+
+2. **In a separate terminal, start the frontend:**
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+3. **Access the frontend dev server:**
+   - [http://localhost:5173](http://localhost:5173) (Proxies `/api` requests to backend on port 8080)
+
+4. **Rebuild static assets for production:**
+   ```bash
+   cd frontend
+   npm run build
+   ```
+   *(Outputs directly to `backend/src/main/resources/static`)*
+
+---
+
+## API Reference
+
+### Dashboard Endpoints
+- `GET /api/dashboard/today` — Retrieve today's unified score, targets, logged meals, workouts, habits, and 7-day trends.
+- `GET /api/dashboard?date=YYYY-MM-DD` — Retrieve dashboard metrics for a specific historical date.
+- `POST /api/dashboard/steps` — Update daily step count (`{ "steps": 10500 }`).
+
+### Hydration Endpoints
+- `GET /api/hydration` — List water logs for today.
+- `POST /api/hydration/quick-add` — Rapidly add water volume in ml (`{ "amountMl": 500 }`).
+
+### Habit Endpoints
+- `GET /api/habits` — Fetch all habits with current streaks and completion status.
+- `POST /api/habits` — Create a new habit (`{ "name": "Cold Shower", "category": "BODY", "targetDaysPerWeek": 7 }`).
+- `POST /api/habits/{id}/toggle` — Check or uncheck a habit for today (updates streak dynamically).
+- `DELETE /api/habits/{id}` — Delete a habit.
+
+### Meals & Nutrition Endpoints
+- `GET /api/meals` — Fetch all meals logged for today.
+- `POST /api/meals` — Log a meal:
+  ```json
+  {
+    "mealType": "LUNCH",
+    "foodName": "Grilled Salmon & Quinoa",
+    "calories": 580,
+    "proteinGrams": 42.0,
+    "carbsGrams": 38.0,
+    "fatGrams": 18.0
+  }
+  ```
+- `DELETE /api/meals/{id}` — Delete a meal entry.
+
+### Workouts & Activity Endpoints
+- `GET /api/activities` — Fetch logged workouts.
+- `POST /api/activities` — Record physical exercise:
+  ```json
+  {
+    "title": "Evening Trail Run",
+    "type": "RUNNING",
+    "durationMinutes": 35,
+    "intensity": "HIGH"
+  }
+  ```
+- `DELETE /api/activities/{id}` — Delete a workout entry.
+
+### Sleep Endpoints
+- `GET /api/sleep` — Fetch sleep analysis for today.
+- `POST /api/sleep` — Record sleep session (`bedTime`, `wakeTime`, `durationMinutes`, `quality`).
+
+---
+
+## Project Structure
+
 ```
-> The backend boots on **`http://localhost:8080`**.  
-> The H2 Web Console is live at **`http://localhost:8080/h2-console`**  
-> *(JDBC URL: `jdbc:h2:mem:lifeledgerdb`, User: `sa`, Password: blank)*.
-
-### 2. Run the React Web Frontend (Port 5173)
-```bash
-cd client
-npm install
-npm run dev
-```
-> Open your browser at **`http://localhost:5173/wellness`** to view the **Life Ledger Wellness Hub**.
-
-### 3. Run Both Concurrently
-```bash
-npm run dev
+life-ledger/
+├── .gitignore                      # Git exclusion rules for Java, Node, IDEs & OS files
+├── README.md                       # Repository documentation
+├── backend/                        # Java Spring Boot application
+│   ├── pom.xml                     # Maven project configuration
+│   └── src/
+│       ├── main/
+│       │   ├── java/com/lifeledger/
+│       │   │   ├── config/         # CorsConfig, DataInitializer
+│       │   │   ├── controller/     # REST Endpoints
+│       │   │   ├── dto/            # Request/Response DTOs
+│       │   │   ├── model/          # JPA Entities (Activity, Habit, Meal, etc.)
+│       │   │   ├── repository/     # Spring Data JPA Repositories
+│       │   │   ├── service/        # Business Logic & Metric Calculations
+│       │   │   └── LifeLedgerApplication.java
+│       │   └── resources/
+│       │       ├── application.properties
+│       │       └── static/         # Pre-compiled React production bundle
+│       └── test/                   # Spring Boot integration & MockMvc tests
+└── frontend/                       # React 18 + Tailwind CSS application
+    ├── package.json
+    ├── vite.config.js
+    ├── tailwind.config.js
+    ├── index.html
+    └── src/
+        ├── components/             # 3D UI cards, charts, and quick-log modal
+        ├── services/api.js         # REST API client
+        ├── App.jsx                 # Dashboard orchestration
+        └── index.css               # 3D perspective styles & animations
 ```
 
 ---
 
-## 📖 REST API Documentation
+## Future Enhancements
 
-All responses are wrapped inside the generic container: `ApiResponse<T>`.
-
-| Method | Endpoint | Description | Sample Request / Response |
-|:---:|---|---|---|
-| `GET` | `/api/health` | Service health check | `{"success": true, "data": {"status": "UP", "service": "Life Ledger Backend"}}` |
-| `GET` | `/api/entries` | Retrieve all historical entries | Returns array of `WellnessEntryDto` sorted by date descending |
-| `GET` | `/api/entries/{date}` | Retrieve entry for date (`YYYY-MM-DD`) | `{"success": true, "data": {"entryDate": "2026-10-10", "steps": 8500, ...}}` |
-| `PUT` | `/api/entries/{date}` | Create or update daily entry | Payload with `steps`, `waterIntakeMl`, `sleepHours`, `exerciseMinutes`, `foodItems`, `habits` |
-| `DELETE` | `/api/entries/{date}` | Delete an entry by date | `{"success": true, "message": "Entry deleted successfully"}` |
-| `GET` | `/api/entries/summary` | Aggregated analytics & life score | Returns `DailySummaryDto` with averages and category score breakdown |
-| `POST` | `/api/entries/seed` | Seed demo records for testing | Populates 3 days of realistic sample logs |
+- [ ] **User Authentication & Accounts**: Spring Security with JWT and role-based access.
+- [ ] **Personalized AI Coaching**: Smart recommendations and adaptive goals based on historical routine performance.
+- [ ] **Cross-Device Sync & Wearables**: Direct synchronization with Apple HealthKit, Google Health Connect, and Garmin Connect.
+- [ ] **Export & Reports**: Downloadable monthly PDF and CSV wellness ledger summaries.
 
 ---
 
-## 🖥️ Standalone Java Swing Desktop GUI
+## License
 
-To demonstrate compliance with the **Java GUI Based Projects Marking Rubric**:
-```bash
-npm run backend:gui
-```
-*(Or run `java -cp "..." com.lifledger.gui.LifeLedgerGUI`)*
-
-### Features of Desktop GUI:
-- **Swing Components**: `JFrame`, `JPanel`, `JTable`, input forms, status indicators.
-- **Multithreading**: `SwingWorker` loads database records in background threads without UI freeze.
-- **Direct JDBC**: Interacts with H2 database via `JdbcWellnessDao` using parameterized SQL queries.
-
----
-
-## 🧪 Automated Rubric Verification Suite
-
-To verify that all academic marking criteria pass:
-```bash
-npm run backend:test
-```
-
-### Verified Criteria:
-```text
-=================================================================
-  🌟 LIFE LEDGER ACADEMIC RUBRIC VERIFICATION SUITE              
-=================================================================
-[TEST 1/4] OOP (Polymorphism, Interfaces, Inheritance)... PASSED!
-[TEST 2/4] Collections & Generics (ApiResponse<T>, Streams)... PASSED!
-[TEST 3/4] Multithreading & Synchronization (Thread Pools)... PASSED!
-[TEST 4/4] JDBC Database Operations (PreparedStatement, CRUD)... PASSED!
-=================================================================
-  RESULTS: 4 / 4 TEST SUITES PASSED! ✅ ALL CRITERIA SATISFIED
-=================================================================
-```
-
----
-
-## 📽️ Presentation Deck & Submission Files
-
-1. **Interactive Slide Presentation**:
-   - Located at: [`presentation/index.html`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/presentation/index.html)
-   - Open in any web browser. Use **Arrow Keys** or **Space** to navigate slides.
-   - Press **Cmd + P** (or Ctrl + P) &rarr; **"Save as PDF"** to export a 16:9 presentation PDF for submission!
-2. **Slide Deck & Speaker Notes**:
-   - Located at: [`presentation/PRESENTATION.md`](file:///Users/vibhorpant/.gemini/antigravity/scratch/life-ledger/presentation/PRESENTATION.md)
-   - Contains slide content, speaker script, and defense Q&A preparation.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
